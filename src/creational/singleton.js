@@ -1,3 +1,4 @@
+// This might be a singleton object
 class Robot {
   constructor(name) {
     this._name = name;
@@ -30,6 +31,7 @@ class Robot {
   }
 }
 
+// Generator for a singleton object
 const RobotGeneratorSingleton = (() => {
   let instance;
 
@@ -69,6 +71,7 @@ const RobotGeneratorSingleton = (() => {
   };
 })();
 
+// Test
 const rg = RobotGeneratorSingleton.getInstance();
 const robotA = rg.create('Adam');
 const robotB = rg.create('Ibu');

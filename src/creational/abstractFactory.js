@@ -35,34 +35,36 @@ class Pentagon extends Figure {
 
 // Factory of objects
 const FigureFactory = () => {
-  const create = numOfCorners => {
-    let item = new Figure('Unknown');
+  let types = {};
 
-    if (numOfCorners === 0) {
-      item = new Circle();
-    } else if (numOfCorners === 3) {
-      item = new Triangle();
-    } else if (numOfCorners === 4) {
-      item = new Square();
-    } else if (numOfCorners === 5) {
-      item = new Pentagon();
+  const create = type => {
+    return new types[type]();
+  };
+
+  const register = (type, clazz) => {
+    if (new clazz() instanceof Figure) {
+      types[type] = clazz;
     }
-
-    return item;
   };
 
   return {
-    create: create
+    create: create,
+    register: register
   };
 };
 
 // Test
 const factory = FigureFactory();
-const circle = factory.create(0);
+factory.register('circle', Circle);
+factory.register('triangle', Triangle);
+factory.register('square', Square);
+factory.register('pentagon', Pentagon);
+
+const circle = factory.create('circle');
 circle.printName();
-const triangle = factory.create(3);
+const triangle = factory.create('triangle');
 triangle.printName();
-const square = factory.create(4);
+const square = factory.create('square');
 square.printName();
-const pentagon = factory.create(5);
+const pentagon = factory.create('pentagon');
 pentagon.printName();
